@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class ClientHandler implements Runnable {
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
-    private Socket client;
-    private BufferedReader in;
+    private final Socket client;
+    private final BufferedReader in;
     private final BufferedWriter out;
-    private String username;
+    private final String username;
     public ClientHandler(Socket client) throws IOException {
 
         this.client = client;
