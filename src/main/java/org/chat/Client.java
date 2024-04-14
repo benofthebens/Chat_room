@@ -5,10 +5,10 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    private Socket client;
-    private BufferedReader in;
-    private BufferedWriter out;
-    private String username;
+    private final Socket client;
+    private final BufferedReader in;
+    private final BufferedWriter out;
+    private final String username;
 
     public Client(String host, int port) throws IOException {
         this.client = new Socket(host,port);
@@ -17,8 +17,7 @@ public class Client {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your username: ");
-        String username = scanner.nextLine();
-        this.username = username;
+        this.username = scanner.nextLine();
         this.listenForMessage();
         this.sendMessage();
     }
@@ -41,19 +40,16 @@ public class Client {
     }
     public void listenForMessage(){
         new Thread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        String msgFromGroupChat;
-                        while(client.isConnected()){
-                            try {
-                                msgFromGroupChat = in.readLine();
-                                System.out.println(msgFromGroupChat);
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-
+                () -> {
+                    String msgFromGroupChat;
+                    while(client.isConnected()){
+                        try {
+                            msgFromGroupChat = in.readLine();
+                            System.out.println(msgFromGroupChat);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         }
+
                     }
                 }
         ).start();
