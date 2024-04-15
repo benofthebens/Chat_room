@@ -17,7 +17,7 @@ public class ClientHandler implements Runnable {
         this.in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         this.username = in.readLine();
         clientHandlers.add(this);
-        brodcastMessage("Server: welcome to the chat " + username);
+
     }
     @Override
     public void run() {
@@ -33,16 +33,17 @@ public class ClientHandler implements Runnable {
         }
 
     }
-
     private void brodcastMessage(String messageFromClient) throws IOException {
 
         for(ClientHandler clientHandler : clientHandlers){
 
             if(!clientHandler.username.equals(this.username)){
+
                 clientHandler.out.newLine();
                 clientHandler.out.write(messageFromClient);
                 clientHandler.out.newLine();
                 clientHandler.out.flush();
+
             }
         }
 
