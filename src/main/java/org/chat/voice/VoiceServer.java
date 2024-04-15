@@ -4,8 +4,8 @@ import org.chat.Server;
 
 import java.io.IOException;
 
-public class CallServer extends Server {
-    public CallServer(int port) throws IOException {
+public class VoiceServer extends Server {
+    public VoiceServer(int port) throws IOException {
         super(port);
     }
 
