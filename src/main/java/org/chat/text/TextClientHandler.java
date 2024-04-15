@@ -4,19 +4,19 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ClientHandler implements Runnable {
-    public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
+public class TextClientHandler implements Runnable {
+    public static ArrayList<TextClientHandler> textClientHandlers = new ArrayList<>();
     private final Socket client;
     private final BufferedReader in;
     private final BufferedWriter out;
     private final String username;
-    public ClientHandler(Socket client) throws IOException {
+    public TextClientHandler(Socket client) throws IOException {
 
         this.client = client;
         this.out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
         this.in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         this.username = in.readLine();
-        clientHandlers.add(this);
+        textClientHandlers.add(this);
 
     }
     @Override
@@ -35,14 +35,14 @@ public class ClientHandler implements Runnable {
     }
     private void brodcastMessage(String messageFromClient) throws IOException {
 
-        for(ClientHandler clientHandler : clientHandlers){
+        for(TextClientHandler textClientHandler : textClientHandlers){
 
-            if(!clientHandler.username.equals(this.username)){
+            if(!textClientHandler.username.equals(this.username)){
 
-                clientHandler.out.newLine();
-                clientHandler.out.write(messageFromClient);
-                clientHandler.out.newLine();
-                clientHandler.out.flush();
+                textClientHandler.out.newLine();
+                textClientHandler.out.write(messageFromClient);
+                textClientHandler.out.newLine();
+                textClientHandler.out.flush();
 
             }
         }
