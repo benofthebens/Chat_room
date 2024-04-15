@@ -1,26 +1,15 @@
 package org.chat.text;
 
-import java.io.*;
-import java.net.Socket;
+import org.chat.Client;
+
+import java.io.IOException;
 import java.util.Scanner;
 
-public class Client {
-    private final Socket client;
-    private final BufferedReader in;
-    private final BufferedWriter out;
-    private final String username;
-
-    public Client(String host, int port) throws IOException {
-        this.client = new Socket(host,port);
-        this.out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-        this.in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your username: ");
-        this.username = scanner.nextLine();
-        this.listenForMessage();
-        this.sendMessage();
+public class TextClient extends Client {
+    public TextClient(String host, int port) throws IOException {
+        super(host,port);
     }
+    @Override
     public void sendMessage() throws IOException {
 
         this.out.write(this.username);
@@ -38,6 +27,7 @@ public class Client {
         }
 
     }
+    @Override
     public void listenForMessage(){
         new Thread(
                 () -> {
@@ -56,6 +46,6 @@ public class Client {
 
     }
     public static void main(String[] args) throws IOException {
-        Client client = new Client("localhost",3000);
+        TextClient textClient = new TextClient("localhost",3000);
     }
 }
