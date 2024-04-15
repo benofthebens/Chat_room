@@ -1,4 +1,6 @@
-package org.chat;
+package org.chat.text;
+
+import org.chat.Server;
 
 import java.io.IOException;
 import java.net.Socket;

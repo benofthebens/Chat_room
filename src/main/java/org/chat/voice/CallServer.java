@@ -1,4 +1,6 @@
-package org.chat;
+package org.chat.voice;
+
+import org.chat.Server;
 
 import java.io.IOException;
 
