@@ -14,8 +14,8 @@ public class TextServer extends Server {
 
         while(!this.serverSocket.isClosed()){
             Socket client = serverSocket.accept();
-            ClientHandler clientHandler = new ClientHandler(client);
-            Thread thread = new Thread(clientHandler);
+            TextClientHandler textClientHandler = new TextClientHandler(client);
+            Thread thread = new Thread(textClientHandler);
             thread.start();
         }
 
